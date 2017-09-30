@@ -12,14 +12,34 @@
  * limitations under the License.
  */
 
-package com.aamend.texata
+package com.aamend.texata.graph.wcc
 
-import com.typesafe.config.{Config, ConfigFactory}
+class VState extends Serializable {
 
-import scala.util.Try
+  var vId: Long = -1L
+  var cId: Long = -1L
+  var changed = false
+  var txV = 0
+  var txC = 0
+  var vtxV = 0
+  var vtxV_C = 0
+  var wcc = 0.0d
 
-trait Harness {
-  val config: Config = ConfigFactory.load()
-  lazy val greeting: String = Try(config.getString("texata.greeting")).getOrElse("Welcome")
-  lazy val musicSdf: String = Try(config.getString("texata.music.sdf")).getOrElse("yyyy-MM-dd HH:mm:ss")
+  override def toString: String = {
+    s"{id:$vId,community:$cId,changed:$changed,txV:$txV,txC:$txC,vtxV:$vtxV,vtxV\\C:$vtxV_C,wcc:$wcc}"
+  }
+
+  def cloneState: VState = {
+    val v = new VState
+    v.vId = vId
+    v.cId = cId
+    v.changed = changed
+    v.txV = txV
+    v.txC = txC
+    v.vtxV = vtxV
+    v.vtxV_C = vtxV_C
+    v.wcc = wcc
+    v
+  }
+
 }

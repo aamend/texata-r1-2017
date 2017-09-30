@@ -12,14 +12,16 @@
  * limitations under the License.
  */
 
-package com.aamend.texata
+package com.aamend.texata.graph
 
-import com.typesafe.config.{Config, ConfigFactory}
+import org.apache.spark.SparkContext
+import org.apache.spark.graphx.Graph
+import org.apache.spark.rdd.RDD
 
-import scala.util.Try
+import scala.reflect.ClassTag
 
-trait Harness {
-  val config: Config = ConfigFactory.load()
-  lazy val greeting: String = Try(config.getString("texata.greeting")).getOrElse("Welcome")
-  lazy val musicSdf: String = Try(config.getString("texata.music.sdf")).getOrElse("yyyy-MM-dd HH:mm:ss")
+trait CommunityDetection {
+
+  def run[VD: ClassTag](graph: Graph[VD, Long], sc: SparkContext): RDD[(Long, Long)]
+
 }

@@ -12,14 +12,22 @@
  * limitations under the License.
  */
 
-package com.aamend.texata
+package com.aamend.texata.graph.louvain
 
-import com.typesafe.config.{Config, ConfigFactory}
+/**
+  * Louvain vertex state
+  * Contains all information needed for louvain community detection
+  */
+class VState extends Serializable {
 
-import scala.util.Try
+  var community: Long = -1L
+  var communitySigmaTot = 0L
+  var internalWeight = 0L
+  var nodeWeight = 0L
+  var changed = false
 
-trait Harness {
-  val config: Config = ConfigFactory.load()
-  lazy val greeting: String = Try(config.getString("texata.greeting")).getOrElse("Welcome")
-  lazy val musicSdf: String = Try(config.getString("texata.music.sdf")).getOrElse("yyyy-MM-dd HH:mm:ss")
+  override def toString: String = {
+    s"{community:$community,communitySigmaTot:$communitySigmaTot,internalWeight:$internalWeight,nodeWeight:$nodeWeight}"
+  }
+
 }
