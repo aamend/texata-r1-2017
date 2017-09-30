@@ -106,7 +106,7 @@ object UDF extends Harness {
   }
 
   val TO_TIME: (String) => Timestamp = (s: String) => {
-    Try(new Timestamp(new SimpleDateFormat(musicSdf).parse(s).getTime)).getOrElse(null)
+    Try(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s).getTime)).getOrElse(null)
   }
 
   val DAY_OF_MONTH: (Timestamp) => Int = (s: Timestamp) => {
